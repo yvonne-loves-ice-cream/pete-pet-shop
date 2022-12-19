@@ -1,6 +1,7 @@
 App = {
   web3Provider: null,
   contracts: {},
+  newpet:{},
 
   init: async function () {
     // Load pets.
@@ -15,12 +16,15 @@ App = {
         petTemplate.find('.pet-age').text(data[i].age);
         petTemplate.find('.pet-location').text(data[i].location);
         petTemplate.find('.pet-price').text(data[i].price);
+        petTemplate.find('.pet-sex').text(data[i].sex);
         petTemplate.find('.btn-adopt').attr('data-id', data[i].id);
         petTemplate.find('.btn-purchase').attr('data-id', data[i].id)
 
         petsRow.append(petTemplate.html());
       }
     });
+
+
 
     $.getJSON('../pets.json', (data) => {
       const petNameArr = data.map((pet) => {
@@ -117,6 +121,7 @@ App = {
     $(document).on('click', '#election-result-modal', App.showPopularPet)
     $(document).on('click', '.btn-purchase', App.handlePurchase)
     $(document).on('click', '#filter-submit', App.submitFilter)
+    $(document).on('click', '#new-pet-submit', App.addPet)
   },
 
   withdrawFromDonate: function () {
@@ -221,6 +226,8 @@ App = {
         return filterInstance.filterByBreed(filterInput)
       } else if (filterType === 'By Age') {
         return filterInstance.filterByAge(parseInt(filterInput))
+      } else if (filterType === 'By Sex') {
+        return filterInstance.filterBySex(filterInput)
       }
     }).then((result) => { //need reproduction
       const strRes = JSON.stringify(result)
@@ -251,6 +258,7 @@ App = {
         petTemplate.find('.pet-age').text(renderRes[i].age);
         petTemplate.find('.pet-location').text(renderRes[i].location);
         petTemplate.find('.pet-price').text(renderRes[i].price);
+        petTemplate.find('.pet-sex').text(renderRes[i].sex);
         petTemplate.find('.btn-adopt').attr('data-id', renderRes[i].id);
         petTemplate.find('.btn-purchase').attr('data-id', renderRes[i].id)
 
@@ -271,6 +279,7 @@ App = {
         petTemplate.find('.pet-age').text(data[i].age);
         petTemplate.find('.pet-location').text(data[i].location);
         petTemplate.find('.pet-price').text(data[i].price);
+        petTemplate.find('.pet-sex').text(data[i].sex);
         petTemplate.find('.btn-adopt').attr('data-id', data[i].id);
         petTemplate.find('.btn-purchase').attr('data-id', data[i].id)
 
@@ -396,7 +405,55 @@ App = {
         console.log(err.message);
       });
     });
+  },
+
+  addPet: () => {
+    console.log('?')
+    let name = $('#name').val();
+    let age = $('#age').val();
+    let breeds = $('#breeds').val();
+    let location = $('#location').val();
+    let newpet = 
+    {
+      "name": name,
+      "picture": "images/golden-retriever.jpeg",
+      "age": age,
+      "breed": breeds,
+      "location": location,
+      "price": "2",
+      "sex": "Boy"
+    };
+    App.newpet = newpet;
+    return App.postNewPet()
+  },
+
+  postNewPet: () => {
+   
+
+    var petsRow = $('#petsRow');
+   
+    var petTemplate = $('#petTemplate');
+    console.log(App.newpet.length)
+
+          console.log('1')
+      petTemplate.find('.panel-title').text(App.newpet.name);
+      console.log('2')
+      petTemplate.find('img').attr('src', App.newpet.picture);
+      console.log('3')
+      petTemplate.find('.pet-breed').text(App.newpet.breed);
+      petTemplate.find('.pet-age').text(App.newpet.age);
+      petTemplate.find('.pet-location').text(App.newpet.location);
+      petTemplate.find('.pet-price').text(App.newpet.price);
+      petTemplate.find('.pet-sex').text(App.newpet.sex);
+      petTemplate.find('.btn-adopt').attr('data-id', App.newpet.id);
+      petTemplate.find('.btn-purchase').attr('data-id', App.newpet.id)
+
+      petsRow.append(petTemplate.html());
+      console.log(petsRow)
+    
   }
+
+
 
 };
 

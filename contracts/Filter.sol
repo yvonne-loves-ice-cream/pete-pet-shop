@@ -4,12 +4,26 @@ pragma experimental ABIEncoderV2;
 contract Filter{
     mapping (uint => string) public petBreed;
     mapping (uint => uint) public petAge;
+    mapping (uint => string) public petSex; 
 
     function filterByBreed(string memory _breed) public view returns (uint[16] memory) {
         uint[16] memory petIdList;
         uint i;
         for (i = 0; i < 16; i++) {
             if (keccak256(abi.encodePacked(_breed)) == keccak256(abi.encodePacked(petBreed[i]))){
+                petIdList[i] = i;
+            } else {
+                petIdList[i] = 666;
+            }
+        }
+        return petIdList;
+    }
+
+    function filterBySex(string memory _sex) public view returns (uint[16] memory) {
+        uint[16] memory petIdList;
+        uint i;
+        for (i = 0; i < 16; i++) {
+            if (keccak256(abi.encodePacked(_sex)) == keccak256(abi.encodePacked(petSex[i]))){
                 petIdList[i] = i;
             } else {
                 petIdList[i] = 666;
@@ -64,5 +78,21 @@ contract Filter{
         petAge[13] = 4;
         petAge[14] = 2;
         petAge[15] = 2;
+        petSex[0] = "Girl";
+        petSex[1] = "Girl";
+        petSex[2] = "Boy";
+        petSex[3] = "Girl";
+        petSex[4] = "Girl";
+        petSex[5] = "Girl";
+        petSex[6] = "Girl";
+        petSex[7] = "Boy";
+        petSex[8] = "Boy";
+        petSex[9] = "Boy";
+        petSex[10] = "Boy";
+        petSex[11] = "Boy";
+        petSex[12] = "Boy";
+        petSex[13] = "Boy";
+        petSex[14] = "Boy";
+        petSex[15] = "Boy";
     }
 }
