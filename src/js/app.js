@@ -219,10 +219,13 @@ App = {
     let filterInstance
     let filterType = $('#filter-dropdown').val()
     let filterInput = $('#filter-input').val() // default as string
+    console.log(filterInput)
     web3.eth.defaultAccount = web3.eth.accounts[0];
     App.contracts.Filter.deployed().then((instance) => {
       filterInstance = instance
-      if (filterType === 'By Breed'){
+      if (filterType === 'By Location'){
+        return filterInstance.filterByLocation(filterInput)
+      } else if (filterType === 'By Breed'){
         return filterInstance.filterByBreed(filterInput)
       } else if (filterType === 'By Age') {
         return filterInstance.filterByAge(parseInt(filterInput))
@@ -233,7 +236,7 @@ App = {
       const strRes = JSON.stringify(result)
       const arrRes = JSON.parse(strRes)
       const numRes = arrRes.filter(item => {
-        return item !== "666"
+        return item !== "1000000"
       }).map(item => parseInt(item))
 
       return App.renderFilter(numRes)
@@ -413,15 +416,30 @@ App = {
     let age = $('#age').val();
     let breeds = $('#breeds').val();
     let location = $('#location').val();
+    let sex = $('#sex').val();
+    let price = $('#price').val();
+
+    let picture;
+
+    if(breeds == "Scottish Terrier"){
+      picture = "/images/scottish-terrier.jpeg"
+    }else if(breeds = "French Bulldog"){
+      picture = "/images/french-bulldog.jpeg"
+    }else if(breeds = "Boxer"){
+      picture = "/images/boxer.jpeg"
+    }else if(breeds = "Golden Retriever"){
+      picture = "/images/golden-retriever.jpeg"
+    }
+console.log(name, age, sex)
     let newpet = 
     {
       "name": name,
-      "picture": "images/golden-retriever.jpeg",
+      "picture": picture,
       "age": age,
       "breed": breeds,
       "location": location,
-      "price": "2",
-      "sex": "Boy"
+      "price": price,
+      "sex": sex,
     };
     App.newpet = newpet;
     return App.postNewPet()
@@ -437,7 +455,7 @@ App = {
 
           console.log('1')
       petTemplate.find('.panel-title').text(App.newpet.name);
-      console.log('2')
+      console.log(App.newpet.name);
       petTemplate.find('img').attr('src', App.newpet.picture);
       console.log('3')
       petTemplate.find('.pet-breed').text(App.newpet.breed);
@@ -449,7 +467,6 @@ App = {
       petTemplate.find('.btn-purchase').attr('data-id', App.newpet.id)
 
       petsRow.append(petTemplate.html());
-      console.log(petsRow)
     
   }
 

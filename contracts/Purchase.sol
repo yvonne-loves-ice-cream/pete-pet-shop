@@ -2,12 +2,10 @@
 pragma solidity ^0.5.1;
 
 contract Purchase {
-    address payable public owner;
-    
-
-    
+    address payable public owner;    
     address[16] public buyers;
-    mapping(address => uint) public purchaseMap;
+
+    mapping(address => uint) public purchaseTrans;
 
     constructor(address payable _owner) public {
         owner = _owner;
@@ -16,7 +14,7 @@ contract Purchase {
     function purchase(uint petId) public payable returns (uint) {
         require (petId >= 0);
         buyers[petId] = msg.sender;
-        purchaseMap[msg.sender] = msg.value;
+        purchaseTrans[msg.sender] = msg.value;
         return petId;
     }
 

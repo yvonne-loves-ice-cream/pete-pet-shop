@@ -4,8 +4,8 @@ pragma solidity ^0.5.1;
 
 contract Donate {
     address payable public owner;
-    address payable public curr_owner;
-    mapping(address => uint) public donationMap;
+    address payable public payer;
+    mapping(address => uint) public donationHistory;
 
     constructor(address payable _owner) public {
         owner = _owner;
@@ -17,8 +17,8 @@ contract Donate {
     }
 
     function doDonate() public payable returns (uint){
-        curr_owner = msg.sender;
-        donationMap[curr_owner] = msg.value;
+        payer = msg.sender;
+        donationHistory[payer] = msg.value;
     }
 
     function withdraw() public payable onlyOwner {

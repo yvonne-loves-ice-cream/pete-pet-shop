@@ -3,28 +3,24 @@ pragma solidity ^0.5.1;
 
 contract Election {
     string petName;
-    string[] petNames;
-    mapping(string => uint256) public voteResult;
+    string[] nameList;
+    mapping(string => uint256) public voteHistory;
 
     function voting(string memory _petName) public {
         petName = _petName;
-        if (voteResult[petName] == 0){
-            petNames.push(petName);
+        if (voteHistory[petName] == 0){
+            nameList.push(petName);
         }
-        voteResult[petName] = voteResult[petName] + 1;
+        voteHistory[petName] = voteHistory[petName] + 1;
     }
 
-    function getPetResult()
-        public
-        view
-        returns (string memory)
-    {
+    function getPetResult() public view returns(string memory){
         uint256 maxVote;
         string memory maxVotePet;
-        for (uint i = 0; i < petNames.length; i++){
-            if (voteResult[petNames[i]] > maxVote){
-                maxVote = voteResult[petNames[i]];
-                maxVotePet = petNames[i];
+        for (uint i = 0; i < nameList.length; i++){
+            if (voteHistory[nameList[i]] > maxVote){
+                maxVote = voteHistory[nameList[i]];
+                maxVotePet = nameList[i];
             }
         }
         return maxVotePet;

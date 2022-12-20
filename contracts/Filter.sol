@@ -1,19 +1,22 @@
 pragma solidity ^0.5.1;
 pragma experimental ABIEncoderV2;
+import "truffle/Console.sol";
+
 
 contract Filter{
-    mapping (uint => string) public petBreed;
-    mapping (uint => uint) public petAge;
-    mapping (uint => string) public petSex; 
+    mapping (uint => string) public breed;
+    mapping (uint => uint) public age;
+    mapping (uint => string) public sex; 
+    mapping (uint => string) public location; 
 
     function filterByBreed(string memory _breed) public view returns (uint[16] memory) {
         uint[16] memory petIdList;
         uint i;
         for (i = 0; i < 16; i++) {
-            if (keccak256(abi.encodePacked(_breed)) == keccak256(abi.encodePacked(petBreed[i]))){
+            if (keccak256(abi.encodePacked(_breed)) == keccak256(abi.encodePacked(breed[i]))){
                 petIdList[i] = i;
             } else {
-                petIdList[i] = 666;
+                petIdList[i] = 1000000;
             }
         }
         return petIdList;
@@ -23,10 +26,10 @@ contract Filter{
         uint[16] memory petIdList;
         uint i;
         for (i = 0; i < 16; i++) {
-            if (keccak256(abi.encodePacked(_sex)) == keccak256(abi.encodePacked(petSex[i]))){
+            if (keccak256(abi.encodePacked(_sex)) == keccak256(abi.encodePacked(sex[i]))){
                 petIdList[i] = i;
             } else {
-                petIdList[i] = 666;
+                petIdList[i] = 1000000;
             }
         }
         return petIdList;
@@ -36,63 +39,96 @@ contract Filter{
         uint[16] memory petIdList;
         uint i;
         for (i = 0; i < 16; i++) {
-            if (_age == petAge[i]){
+            if (_age == age[i]){
                 petIdList[i] = i;
             } else {
-                petIdList[i] = 666;
+                petIdList[i] = 1000000;
             }
         }
         return petIdList;
     }
+
+    function filterByLocation(string memory _location) public view returns (uint[16] memory) {
+
+        uint[16] memory petIdList;
+        uint i;
+        for (i = 0; i < 16; i++) {
+            if (keccak256(abi.encodePacked(_location)) == keccak256(abi.encodePacked(location[i]))){
+                petIdList[i] = i;
+            } else {
+                petIdList[i] = 1000000;
+            }
+        }
+        return petIdList;
+    }
+
+
+
     
     function getPetInfos() public {
-        petBreed[0] = "Scottish Terrier";
-        petBreed[1] = "Scottish Terrier";
-        petBreed[2] = "French Bulldog";
-        petBreed[3] = "Boxer";
-        petBreed[4] = "French Bulldog";
-        petBreed[5] = "French Bulldog";
-        petBreed[6] = "Golden Retriever";
-        petBreed[7] = "Golden Retriever";
-        petBreed[8] = "Frech Bulldog";
-        petBreed[9] = "Boxer";
-        petBreed[10] = "Boxer";
-        petBreed[11] = "Scottish Terrier";
-        petBreed[12] = "French Bulldog";
-        petBreed[13] = "Golden Retriever";
-        petBreed[14] = "Golden Retriever";
-        petBreed[15] = "Golden Retriever";
-        petAge[0] = 3;
-        petAge[1] = 3;
-        petAge[2] = 2;
-        petAge[3] = 2;
-        petAge[4] = 2;
-        petAge[5] = 3;
-        petAge[6] = 3;
-        petAge[7] = 3;
-        petAge[8] = 2;
-        petAge[9] = 3;
-        petAge[10] = 2;
-        petAge[11] = 3;
-        petAge[12] = 3;
-        petAge[13] = 4;
-        petAge[14] = 2;
-        petAge[15] = 2;
-        petSex[0] = "Girl";
-        petSex[1] = "Girl";
-        petSex[2] = "Boy";
-        petSex[3] = "Girl";
-        petSex[4] = "Girl";
-        petSex[5] = "Girl";
-        petSex[6] = "Girl";
-        petSex[7] = "Boy";
-        petSex[8] = "Boy";
-        petSex[9] = "Boy";
-        petSex[10] = "Boy";
-        petSex[11] = "Boy";
-        petSex[12] = "Boy";
-        petSex[13] = "Boy";
-        petSex[14] = "Boy";
-        petSex[15] = "Boy";
+        breed[0] = "Scottish Terrier";
+        breed[1] = "Scottish Terrier";
+        breed[2] = "French Bulldog";
+        breed[3] = "Boxer";
+        breed[4] = "French Bulldog";
+        breed[5] = "French Bulldog";
+        breed[6] = "Golden Retriever";
+        breed[7] = "Golden Retriever";
+        breed[8] = "Frech Bulldog";
+        breed[9] = "Boxer";
+        breed[10] = "Boxer";
+        breed[11] = "Scottish Terrier";
+        breed[12] = "French Bulldog";
+        breed[13] = "Golden Retriever";
+        breed[14] = "Golden Retriever";
+        breed[15] = "Golden Retriever";
+        age[0] = 3;
+        age[1] = 3;
+        age[2] = 2;
+        age[3] = 2;
+        age[4] = 2;
+        age[5] = 3;
+        age[6] = 3;
+        age[7] = 3;
+        age[8] = 2;
+        age[9] = 3;
+        age[10] = 2;
+        age[11] = 3;
+        age[12] = 3;
+        age[13] = 4;
+        age[14] = 2;
+        age[15] = 2;
+        sex[0] = "Girl";
+        sex[1] = "Girl";
+        sex[2] = "Boy";
+        sex[3] = "Girl";
+        sex[4] = "Girl";
+        sex[5] = "Girl";
+        sex[6] = "Girl";
+        sex[7] = "Boy";
+        sex[8] = "Boy";
+        sex[9] = "Boy";
+        sex[10] = "Boy";
+        sex[11] = "Boy";
+        sex[12] = "Boy";
+        sex[13] = "Boy";
+        sex[14] = "Boy";
+        sex[15] = "Boy";
+        location[0] = "Lisco Alabama";
+        location[1] = "Tooleville West Virginia";
+        location[2] = "Freeburn Idaho";
+        location[3] = "Camas Pennsylvania";
+        location[4] = "Gerber South Dakota";
+        location[5] = "Innsbrook Illinois";
+        location[6] = "Soudan Louisiana";
+        location[7] = "Jacksonwald Palau";
+        location[8] = "Honolulu Hawaii";
+        location[9] = "Matheny Utah";
+        location[10] = "Tyhee Indiana";
+        location[11] = "Windsor Montana";
+        location[12] = "Kingstowne Nevada";
+        location[13] = "Sultana Massachusetts";
+        location[14] = "Broadlands Oregon";
+        location[15] = "Dawn Wisconsin";
     }
 }
