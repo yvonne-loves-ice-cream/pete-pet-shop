@@ -59,16 +59,16 @@
               <!-- the fancy box -->
               <div id="id01" class="mymodel">
                 <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-                <form class="mymodelcontent" id="newpetform">
+                <form class="mymodelcontent modal-content" id="newpetform">
                   <div class="container">
                     <h1>New post</h1>
                     <p>Please fill in this form to add a new pet.</p>
                     <hr>
                     <label for="petname"><b>Pet Name</b></label>
-                    <input type="text" id= "name"placeholder="Enter your pet's name" name="petname">
+                    <input type="text" id= "name"placeholder="Enter your pet's name" name="petname" required>
   <hr>
                     <label for="age">Age:</label>
-                    <input type="number" id="age" name="age">
+                    <input type="number" id="age" name="age" required>
   <hr>
                     <label for="breed"><b>Pet breed</b></label>
                     <select name="breeds" id="breeds">
@@ -87,7 +87,7 @@
 <hr>
 
 <label for="price"><b>Price:</b></label>
-<input type="number" id="price" name="price">
+<input type="number" id="price" name="price" required>
 
 <hr>
                     <label for="breed"><b>Location</b></label>
@@ -97,7 +97,7 @@
   
                     <div class="clearfix">
                       <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                      <button type="submit" class="signupbtn" id="new-pet-submit">Post</button>
+                      <button type="submit" class="signupbtn" id="new-pet-submit" onclick="document.getElementById('id01').style.display='none'">Post</button>
                     </div>
                   </div>
                 </form>

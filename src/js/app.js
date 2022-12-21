@@ -410,11 +410,14 @@ App = {
     });
   },
 
-  addPet: ()=> {
-    console.log('?')
+  addPet: (e)=> {
+
+    e.preventDefault();
+    
     let name = $('#name').val();
     let age = $('#age').val();
     let breeds = $('#breeds').val();
+    console.log(breeds)
     let location = $('#location').val();
     let sex = $('#sex').val();
     let price = $('#price').val();
@@ -423,14 +426,13 @@ App = {
 
     if(breeds == "Scottish Terrier"){
       picture = "/images/scottish-terrier.jpeg"
-    }else if(breeds = "French Bulldog"){
+    }else if(breeds == "French Bulldog"){
       picture = "/images/french-bulldog.jpeg"
-    }else if(breeds = "Boxer"){
+    }else if(breeds == "Boxer"){
       picture = "/images/boxer.jpeg"
-    }else if(breeds = "Golden Retriever"){
+    }else if(breeds == "Golden Retriever"){
       picture = "/images/golden-retriever.jpeg"
     }
-console.log(name, age, sex)
     let newpet = 
     {
       "name": name,
@@ -442,6 +444,7 @@ console.log(name, age, sex)
       "sex": sex,
     };
     App.newpet = newpet;
+    console.log(App.newpet )
     return App.postNewPet()
   },
 
@@ -451,13 +454,13 @@ console.log(name, age, sex)
     var petsRow = $('#petsRow');
    
     var petTemplate = $('#petTemplate');
-    console.log(App.newpet.length)
 
-          console.log('1')
+
+
       petTemplate.find('.panel-title').text(App.newpet.name);
-      console.log(App.newpet.name);
+
       petTemplate.find('img').attr('src', App.newpet.picture);
-      console.log('3')
+
       petTemplate.find('.pet-breed').text(App.newpet.breed);
       petTemplate.find('.pet-age').text(App.newpet.age);
       petTemplate.find('.pet-location').text(App.newpet.location);
@@ -465,7 +468,7 @@ console.log(name, age, sex)
       petTemplate.find('.pet-sex').text(App.newpet.sex);
       petTemplate.find('.btn-adopt').attr('data-id', App.newpet.id);
       petTemplate.find('.btn-purchase').attr('data-id', App.newpet.id)
-
+      console.log(petTemplate)
       petsRow.append(petTemplate.html());
     
   }
