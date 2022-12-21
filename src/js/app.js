@@ -410,7 +410,7 @@ App = {
     });
   },
 
-  addPet: () => {
+  addPet: ()=> {
     console.log('?')
     let name = $('#name').val();
     let age = $('#age').val();
